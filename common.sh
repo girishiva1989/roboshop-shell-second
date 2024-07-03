@@ -2,7 +2,7 @@ app_user=roboshop
 
 fun_print_head()
 {
-  "\e[31m<<<<<<<<<$*>>>>>>>>>\e[0m"
+  echo -e "\e[31m<<<<<<<<<$*>>>>>>>>>\e[0m"
 }
 
 fun_nodejs()
