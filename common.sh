@@ -8,7 +8,7 @@ fun_print_head()
 
 fun_schema_setup()
 {
-  if ["$schema_setup" == "mongod"]
+  if [ "$schema_setup" == "mongod" ]
   then
   fun_print_head "setup MongoDB repo"
   cp ${script_path}/mongod.repo /etc/yum.repos.d/mongo.repo
