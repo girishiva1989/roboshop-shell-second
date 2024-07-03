@@ -5,6 +5,24 @@ fun_print_head()
   echo -e "\e[31m<<<<<<<<<$*>>>>>>>>>\e[0m"
 }
 
+
+fun_schema_setup()
+{
+  if ["$schema_setup" == "mongod"]
+  then
+  fun_print_head "setup MongoDB repo"
+  cp ${script_path}/mongod.repo /etc/yum.repos.d/mongo.repo
+
+  fun_print_head "Install mongodb-client"
+  dnf install mongodb-org-shell -y
+
+  fun_print_head "load the schema"
+  mongo --host mongod-dev.gdevops89.online </app/schema/${component}.js
+
+  fun_print_head "Restart Service"
+  systemctl restart ${component}
+  fi
+}
 fun_nodejs()
 {
   fun_print_head "List the modules and enable 18 version"
@@ -36,5 +54,7 @@ fun_nodejs()
   systemctl daemon-reload
   systemctl enable ${component}
   systemctl start ${component}
+
+  fun_schema_setup
 
 }
