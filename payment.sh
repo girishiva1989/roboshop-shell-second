@@ -3,6 +3,12 @@ script_path=$(dirname $script)
 source ${script_path}/common.sh
 rabbitmq_user_password=$*
 
+if  [ -z "${rabbitmq_user_password}" ]
+then
+  echo input not provided
+  exit
+fi
+
 echo -e "\e[31m<<<<<<<<<Install Python 3.6>>>>>>>>>\e[0m"
 dnf install python36 gcc python3-devel -y
 

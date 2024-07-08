@@ -4,6 +4,12 @@ source ${script_path}/common.sh
 #RoboShop@1
 mysql_user_password=$*
 
+if  [ -z "${mysql_user_password}" ]
+then
+  echo input not provided
+  exit
+fi
+
 echo -e "\e[31m<<<<<<<<<Install Maven>>>>>>>>>\e[0m"
 dnf install maven -y
 

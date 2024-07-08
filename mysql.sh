@@ -4,6 +4,12 @@ source ${script_path}/common.sh
 #RoboShop@1
 mysql_user_password=$*
 
+if  [ -z "${mysql_user_password}" ]
+then
+  echo input not provided
+  exit
+fi
+
 dnf module disable mysql -y
 
 echo -e "\e[31m<<<<<<<<<Setup MySQL5.7 repo file>>>>>>>>>\e[0m"
