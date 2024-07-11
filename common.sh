@@ -99,6 +99,6 @@ fun_java()
 
   fun_schema_setup
 
-  echo -e "\e[31m<<<<<<<<<Restart Service>>>>>>>>>\e[0m"
+  fun_print_head "Restart Service"
   systemctl restart ${component}
 }
