@@ -29,6 +29,15 @@ fun_schema_setup()
   fi
 }
 
+fun_status_check()
+{
+  if [ $1 -eq 0 ]; then
+    fun_print_head "Success"
+  else
+    fun_print_head "Error"
+  fi
+}
+
 fun_app_prereq()
 {
     fun_print_head "Add application User"
@@ -80,6 +89,7 @@ fun_nodejs()
 fun_java() {
   fun_print_head "Install Maven"
   dnf install maven -y
+  fun_status_check $?
 
   fun_app_prereq
 
