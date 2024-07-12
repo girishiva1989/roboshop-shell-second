@@ -1,13 +1,11 @@
 app_user=roboshop
 
-fun_print_head()
-{
+fun_print_head() {
   echo -e "\e[31m<<<<<<<<<$*>>>>>>>>>\e[0m"
 }
 
 
-fun_schema_setup()
-{
+fun_schema_setup() {
   if [ "$schema_setup" == "mongod" ]; then
        fun_print_head "setup MongoDB repo"
        cp ${script_path}/mongod.repo /etc/yum.repos.d/mongo.repo
@@ -33,8 +31,7 @@ fun_schema_setup()
   fi
 }
 
-fun_app_prereq()
-{
+fun_app_prereq() {
     fun_print_head "Add application User"
     useradd ${app_user}
 
@@ -49,8 +46,7 @@ fun_app_prereq()
 
 }
 
-fun_systemd_setup()
-{
+fun_systemd_setup() {
 
   fun_print_head "Setup SystemD ${component} Service"
   cp ${script_path}/${component}.service /etc/systemd/system/${component}.service
@@ -62,8 +58,7 @@ fun_systemd_setup()
 
 }
 
-fun_nodejs()
-{
+fun_nodejs() {
   fun_print_head "List the modules and enable 18 version"
   dnf module disable nodejs -y
   dnf module enable nodejs:18 -y
@@ -81,8 +76,7 @@ fun_nodejs()
   fun_systemd_setup
 }
 
-fun_java()
-{
+fun_java() {
   fun_print_head "Install Maven"
   dnf install maven -y
 
