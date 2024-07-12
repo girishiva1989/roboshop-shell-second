@@ -92,13 +92,10 @@ fun_java()
   fun_print_head "Setup SystemD Shipping Service"
   cp ${script_path}/${component}.service /etc/systemd/system/${component}.service
 
+  fun_schema_setup
+
   fun_print_head "Load and Start the service"
   systemctl daemon-reload
   systemctl enable ${component}
   systemctl start ${component}
-
-  fun_schema_setup
-
-  fun_print_head "Restart Service"
-  systemctl restart ${component}
 }
