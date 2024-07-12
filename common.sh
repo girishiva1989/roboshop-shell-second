@@ -8,27 +8,24 @@ fun_print_head() {
 fun_schema_setup()
 {
   if [ "$schema_setup" == "mongod" ]; then
-       fun_print_head "setup MongoDB repo"
-       cp ${script_path}/mongod.repo /etc/yum.repos.d/mongo.repo
+    fun_print_head "setup MongoDB repo"
+    cp ${script_path}/mongod.repo /etc/yum.repos.d/mongo.repo
 
-       fun_print_head "Install mongodb-client"
-       dnf install mongodb-org-shell -y
+    fun_print_head "Install mongodb-client"
+    dnf install mongodb-org-shell -y
 
-       fun_print_head "load the schema"
-       mongo --host mongod-dev.gdevops89.online </app/schema/${component}.js
+    fun_print_head "load the schema"
+    mongo --host mongod-dev.gdevops89.online </app/schema/${component}.js
 
-       fun_print_head "Restart Service"
-       systemctl restart ${component}
+    fun_print_head "Restart Service"
+    systemctl restart ${component}
   fi
-
-  # shellcheck disable=SC1046
-  # shellcheck disable=SC1073
   if [ "$schema_setup" == "mysql" ]; then
-        fun_print_head "Install mysql client"
-        dnf install mysql -y
+    fun_print_head "Install mysql client"
+    dnf install mysql -y
 
-        fun_print_head "Load schema"
-        mysql -h mysql-dev.gdevops89.online -uroot -p${mysql_user_password}< /app/schema/${component.sql
+    fun_print_head "Load schema"
+    mysql -h mysql-dev.gdevops89.online -uroot -p${mysql_user_password}< /app/schema/${component}.sql
   fi
 }
 
@@ -80,8 +77,7 @@ fun_nodejs()
   fun_systemd_setup
 }
 
-fun_java()
-{
+fun_java() {
   fun_print_head "Install Maven"
   dnf install maven -y
 
@@ -94,5 +90,4 @@ fun_java()
   fun_schema_setup
 
   fun_systemd_setup
-
 }
