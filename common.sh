@@ -124,3 +124,22 @@ fun_java() {
 
   fun_systemd_setup
 }
+
+fun_python()
+{
+  fun_print_head "Install Python 3.6"
+  dnf install python36 gcc python3-devel -y &>>${log_file}
+  fun_status_check $?
+
+  fun_app_prereq
+
+  fun_print_head "Download the dependencies"
+  pip3.6 install -r requirements.txt &>>${log_file}
+  fun_status_check $?
+
+  fun_print_head "Update Password in System Service file"
+  sed -i -e "s|rabbitmq_user_password|${rabbitmq_user_password}|" ${script_path}/payment.service &>>${log_file}
+  fun_status_check $?
+
+  fun_systemd_setup
+}
