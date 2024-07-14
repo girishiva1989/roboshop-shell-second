@@ -52,7 +52,7 @@ fun_app_prereq()
 {
     fun_print_head "Add application User"
     id app_user &>>${log_file}
-    if [ $? -eq 0 ]; then
+    if [ $? -ne 0 ]; then
       useradd ${app_user} &>>${log_file}
     fi
 
