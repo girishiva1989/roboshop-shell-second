@@ -2,6 +2,7 @@ app_user=roboshop
 log_file=/tmp/roboshop.log
 
 fun_print_head() {
+  echo -e "\e[31m<<<<<<<<<$*>>>>>>>>>\e[0m"
   echo -e "\e[31m<<<<<<<<<$*>>>>>>>>>\e[0m" &>>${log_file}
 }
 
