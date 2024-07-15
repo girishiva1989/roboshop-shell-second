@@ -10,21 +10,27 @@ then
   exit
 fi
 
-dnf module disable mysql -y
+fun_print_head "Disable Module 8 Version"
+dnf module disable mysql -y &>>${log_file}
+fun_status_check $?
 
-echo -e "\e[31m<<<<<<<<<Setup MySQL5.7 repo file>>>>>>>>>\e[0m"
-cp ${script_path}/mysql.repo /etc/yum.repos.d/mysql.repo
+fun_print_head "Setup MySQL5.7 repo file"
+cp ${script_path}/mysql.repo /etc/yum.repos.d/mysql.repo &>>${log_file}
+fun_status_check $?
 
-echo -e "\e[31m<<<<<<<<<Install MySQL Server>>>>>>>>>\e[0m"
-dnf install mysql-community-server -y
+fun_print_head "Install MySQL Server"
+dnf install mysql-community-server -y &>>${log_file}
+fun_status_check $?
 
-echo -e "\e[31m<<<<<<<<<Start Service>>>>>>>>>\e[0m"
-systemctl enable mysqld
-systemctl start mysqld
+fun_print_head "Start Service"
+systemctl enable mysqld &>>${log_file}
+systemctl start mysqld &>>${log_file}
+fun_status_check $?
 
-echo -e "\e[31m<<<<<<<<<Change the default root password>>>>>>>>>\e[0m"
-mysql_secure_installation --set-root-pass ${mysql_user_password}
+fun_print_head "Change the default root password"
+mysql_secure_installation --set-root-pass ${mysql_user_password} &>>${log_file}
+fun_status_check $?
 
-echo -e "\e[31m<<<<<<<<<Check the new password is working>>>>>>>>>\e[0m"
-mysql -uroot -p${mysql_user_password}
-quit
+fun_print_head "Check the new password is working"
+mysql -uroot -p${mysql_user_password} &>>${log_file}
+fun_status_check $?

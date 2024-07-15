@@ -2,19 +2,24 @@ script=$(realpath $0)
 script_path=$(dirname $script)
 source ${script_path}/common.sh
 
-echo -e "\e[31m<<<<<<<<<Setup the MongoDB repo file>>>>>>>>>\e[0m"
-cp ${script_path}/mongod.repo /etc/yum.repos.d/mongo.repo
+fun_print_head "Setup the MongoDB repo file"
+cp ${script_path}/mongod.repo /etc/yum.repos.d/mongo.repo &>>${log_file}
+fun_status_check $?
 
-echo -e "\e[31m<<<<<<<<<Install MongoDB>>>>>>>>>\e[0m"
-dnf install mongodb-org -y
+fun_print_head "Install MongoDB"
+dnf install mongodb-org -y &>>${log_file}
+fun_status_check $?
 
-echo -e "\e[31m<<<<<<<<<Start & Enable MongoDB Service>>>>>>>>>\e[0m"
-systemctl enable mongod
-systemctl start mongod
+fun_print_head "Start & Enable MongoDB Service"
+systemctl enable mongod &>>${log_file}
+systemctl start mongod &>>${log_file}
+fun_status_check $?
 
-echo -e "\e[31m<<<<<<<<<IUpdate listen address from 127.0.0.1 to 0.0.0.0>>>>>>>>>\e[0m"
-sed -i -e 's|127.0.0.1|0.0.0.0|g' /etc/mongod.conf
+fun_print_head "IUpdate listen address from 127.0.0.1 to 0.0.0.0"
+sed -i -e 's|127.0.0.1|0.0.0.0|g' /etc/mongod.conf &>>${log_file}
+fun_status_check $?
 # Update listen address from 127.0.0.1 to 0.0.0.0 in /etc/mongod.conf
 
-echo -e "\e[31m<<<<<<<<<Restart MongoDB service>>>>>>>>>\e[0m"
-systemctl restart mongod
+fun_print_head "Restart MongoDB service"
+systemctl restart mongod &>>${log_file}
+fun_status_check $?
