@@ -103,9 +103,11 @@ fun_nodejs()
   npm install &>>${log_file}
   fun_status_check $?
 
+  fun_systemd_setup
+
   fun_schema_setup
 
-  fun_systemd_setup
+
 }
 
 fun_java() {
@@ -120,9 +122,11 @@ fun_java() {
   mv target/${component}-1.0.jar ${component}.jar &>>${log_file}
   fun_status_check $?
 
+  fun_systemd_setup
+
   fun_schema_setup
 
-  fun_systemd_setup
+
 }
 
 fun_python()
