@@ -19,7 +19,3 @@ sed -i -e 's|127.0.0.1|0.0.0.0|g' /etc/redis.conf /etc/redis/redis.conf &>>${log
 fun_status_check $?
 # Update listen address from 127.0.0.1 to 0.0.0.0 in /etc/redis.conf & /etc/redis/redis.conf
 
-fun_print_head "Install NodeJS"
-systemctl enable redis &>>${log_file}
-systemctl start redis &>>${log_file}
-fun_status_check $?
