@@ -20,6 +20,6 @@ fun_status_check $?
 # Update listen address from 127.0.0.1 to 0.0.0.0 in /etc/redis.conf & /etc/redis/redis.conf
 
 fun_print_head "Start Redis Service"
-systemctl enable redis &>>$log_file
-systemctl restart redis &>>$log_file
-func_stat_check $?
+systemctl enable redis &>>${log_file}
+systemctl restart redis &>>${log_file}
+fun_status_check $?
