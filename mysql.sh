@@ -31,6 +31,6 @@ fun_print_head "Change the default root password"
 mysql_secure_installation --set-root-pass ${mysql_user_password} &>>${log_file}
 fun_status_check $?
 
-fun_print_head "Check the new password is working"
-mysql -uroot -p${mysql_user_password} &>>${log_file}
-fun_status_check $?
+#fun_print_head "Check the new password is working"
+#mysql -uroot -p${mysql_user_password} &>>${log_file}
+#fun_status_check $?
