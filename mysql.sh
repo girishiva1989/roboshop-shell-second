@@ -7,7 +7,7 @@ mysql_user_password=$*
 if  [ -z "${mysql_user_password}" ]
 then
   echo input not provided
-  exit
+  exit 1
 fi
 
 fun_print_head "Disable Module 8 Version"
